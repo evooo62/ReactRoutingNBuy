@@ -1,0 +1,121 @@
+// cart ekleme çıkarama güncelleme adet artırma vs gibi işlemler için burada logicler yazılacak bize cart bilgisi döndürecek.
+
+export const CartService = {
+	AddToCart: (newCartItem, stateCartItems) => {
+		const existingCartItem = stateCartItems.find((x) => x.id == newCartItem.id);
+
+		// daha önceden sepete eklenmiş
+		if (existingCartItem != undefined) {
+			existingCartItem.quantity += 1;
+
+			let _total = 0;
+
+			stateCartItems.forEach((cartItem) => {
+				_total += Number(cartItem.price) * Number(cartItem.quantity);
+			});
+
+			return {
+				cartItems: [...stateCartItems],
+				total: _total,
+			};
+		} else {
+			let newCartItems = [newCartItem, ...stateCartItems];
+
+			console.log('newCartItems', newCartItems);
+
+			let _total = 0;
+
+			newCartItems.forEach((cartItem) => {
+				_total += Number(cartItem.price) * Number(cartItem.quantity);
+			});
+
+			return {
+				cartItems: [...newCartItems],
+				total: _total,
+			};
+		}
+	},
+	RemoveFromCart: (id, stateCartItems) => {
+		const newCartItems = stateCartItems.filter((x) => x.id != id);
+
+		let _total = 0;
+
+		newCartItems.forEach((item) => {
+			_total += Number(item.quantity) * Number(item.price);
+		});
+
+		console.log('newCartItems', newCartItems);
+
+		return {
+			cartItems: [...newCartItems],
+			total: _total,
+		};
+	},
+	DecreaseQuantity: (newCartItem, stateCartItems) => {
+		const existingCartItem = stateCartItems.find((x) => x.id == newCartItem.id);
+
+		// daha önceden sepete eklenmiş
+		if (existingCartItem != undefined) {
+			existingCartItem.quantity -= 1;
+
+			let _total = 0;
+
+			stateCartItems.forEach((cartItem) => {
+				_total += Number(cartItem.price) * Number(cartItem.quantity);
+			});
+
+			return {
+				cartItems: [...stateCartItems],
+				total: _total,
+			};
+		} else {
+			let newCartItems = [newCartItem, ...stateCartItems];
+
+
+			let _total = 0;
+
+			newCartItems.forEach((cartItem) => {
+				_total += Number(cartItem.price) * Number(cartItem.quantity);
+			});
+
+			return {
+				cartItems: [...newCartItems],
+				total: _total,
+			};
+		}
+	},
+	IncreaseQuantity: (newCartItem, stateCartItems) => {
+		const existingCartItem = stateCartItems.find((x) => x.id == newCartItem.id);
+		console.log('IncreaseQuantity')
+		// daha önceden sepete eklenmiş
+		if (existingCartItem != undefined) {
+			existingCartItem.quantity += 1;
+			console.log('if')
+			let _total = 0;
+
+			stateCartItems.forEach((cartItem) => {
+				_total += Number(cartItem.price) * Number(cartItem.quantity);
+			});
+
+			return {
+				cartItems: [...stateCartItems],
+				total: _total,
+			};
+		} else {
+			console.log('else')
+			let newCartItems = [newCartItem, ...stateCartItems];
+
+			let _total = 0;
+
+			newCartItems.forEach((cartItem) => {
+				_total += Number(cartItem.price) * Number(cartItem.quantity);
+			});
+
+			return {
+				cartItems: [...newCartItems],
+				total: _total,
+			};
+		}
+	},
+
+}
